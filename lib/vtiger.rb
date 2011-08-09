@@ -12,6 +12,12 @@ class Vtiger
   format :json
   
   module ClassMethods
+    def config(config = {})
+      Vtiger.user = config[:user]
+      Vtiger.key  = config[:key]
+      Vtiger.uri  = config[:uri]
+    end
+    
     def list_types
       api_get('listtypes')['types']
     end
@@ -19,7 +25,8 @@ class Vtiger
     def describe(element_type)
       api_get('describe', {:elementType => element_type})
     end
-
+    
+    private
     def session
       unless @session && @challenge['expireTime'] > 30.seconds.from_now.to_i
         @challenge  = get(uri, :query => {:operation => 'getchallenge', :username => user})
