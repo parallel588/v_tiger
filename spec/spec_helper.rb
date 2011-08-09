@@ -1,7 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 
-require 'vtiger-ruby' # and any other gems you need
+require 'vtiger' # and any other gems you need
 
 RSpec.configure do |config|
   # some (optional) config here

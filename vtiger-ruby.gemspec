@@ -1,10 +1,10 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "vt/version"
+require "vtiger/version"
 
 Gem::Specification.new do |s|
   s.name        = "vtiger-ruby"
-  s.version     = Vtiger::Ruby::VERSION
+  s.version     = Vtiger::VERSION
   s.authors     = ["Torey Heinz"]
   s.email       = ["torey@ihswebdesign.com"]
   s.homepage    = ""

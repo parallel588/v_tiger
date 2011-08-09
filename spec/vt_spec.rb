@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe "VT" do
   before(:all) do
-    VT.user = 'admin'
-    VT.key  = 'dH1WLzo4utYOpXx9'
-    VT.uri  = 'http://crm.ihswebdesign.com/webservice.php'
+    Vtiger.user = 'admin'
+    Vtiger.key  = 'dH1WLzo4utYOpXx9'
+    Vtiger.uri  = 'http://crm.ihswebdesign.com/webservice.php'
+    # http://c-fastest.com/vtiger/webservice.php
   end
   
   # describe ".get_challenge" do
@@ -17,17 +18,26 @@ describe "VT" do
   
   describe ".session" do
     it "should be present" do
-      VT.session.should be
+      Vtiger.session.should be
     end
     
     it "should persist" do
-      VT.session.should == VT.session
+      Vtiger.session.should == Vtiger.session
     end
   end
   
   describe ".list_types" do
     it "should include Products" do
-      VT.list_types['types'].should include('Products')
+      Vtiger.list_types.should include('Products')
     end
+  end
+  
+  describe ".describe" do
+    context " Product" do
+      it "should have a label with Products" do
+        Vtiger.describe('Products')['label'].should == "Products"
+      end
+    end
+    
   end
 end
