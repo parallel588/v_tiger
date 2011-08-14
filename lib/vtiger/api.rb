@@ -1,0 +1,3 @@
+class Vtiger::API
+  
+end

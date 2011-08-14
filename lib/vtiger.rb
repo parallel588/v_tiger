@@ -1,4 +1,5 @@
 require "vtiger/version"
+require "vtiger/api"
 # require 'vt/attribute_accessors'
 require 'HTTParty'
 require 'active_support/time'
