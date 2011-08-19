@@ -8,12 +8,12 @@ describe "Vtiger::API" do
   describe "#create" do
     context " with a valid object" do
       it "should return success" do
-        @api.create('Products', 'productname' => 'Title of Product', 'manufacture' => 'Broyhill')['success'].should equal('true')
+        @api.create('Products', 'productname' => 'Title of Product', 'manufacture' => 'Broyhill')['success'].should be_true
       end
     
       it "should return an VtigerObject that matches what we sent" do
-        attributes = {'productname' => 'Title of Product', 'manufacture' => 'Broyhill'}
-        @api.create('Products', attributes).should include(attributes)
+        attributes = {'productname' => 'Title of Product', 'manufacturer' => 'Broyhill'}
+        @api.create('Products', attributes)['result'].should include_hash(attributes)
       end
     end
   end

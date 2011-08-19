@@ -1,11 +1,14 @@
 require "vtiger/version"
 require "vtiger/api"
-# require 'vt/attribute_accessors'
+
 require 'httparty'
+require 'json'
+YAML::ENGINE.yamler = "syck"
+
 require 'active_support/time'
 require 'active_support/core_ext/numeric'
 require 'active_support/core_ext/class/attribute_accessors'
-
+require 'active_support/core_ext/hash/slice'
 
 class Vtiger
   cattr_accessor :user, :key, :uri
@@ -31,18 +34,10 @@ class Vtiger
 
     def get(*args)
       super(*args).parsed_response
-      # response = super(*args)
-      # puts response.methods.sort - Object.methods
-      # puts response.request.uri.to_s
-      # puts response.inspect
-      # response.parsed_response
     end
 
     def post(*args)
       super(*args).parsed_response
-      # response = super(*args)
-      # puts response.inspect
-      # response.parsed_response
     end
   end
   extend Vtiger::ClassMethods

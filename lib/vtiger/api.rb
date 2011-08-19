@@ -1,22 +1,14 @@
 class Vtiger::API
-  format :json
   def list_types
-    puts Vtiger.session
     get('listtypes')['result']['types']
   end
 
   def describe(element_type)
-    puts Vtiger.session
     get('describe', {:elementType => element_type})['result']
   end
   
-  def create(elementType, elementObject = {})
-  # def create(elementType, )
-    # puts Vtiger.uri
-    # puts Vtiger.user
-    # puts Vtiger.key
-    puts Vtiger.session
-    post('create', elementObject)
+  def create(elementType, element = {})
+    post('create', :elementType => elementType, :element => element.to_json)
   end
   
   def get(operation, query = {})
