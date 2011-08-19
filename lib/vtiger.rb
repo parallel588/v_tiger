@@ -1,7 +1,7 @@
 require "vtiger/version"
 require "vtiger/api"
 # require 'vt/attribute_accessors'
-require 'HTTParty'
+require 'httparty'
 require 'active_support/time'
 require 'active_support/core_ext/numeric'
 require 'active_support/core_ext/class/attribute_accessors'
@@ -19,36 +19,30 @@ class Vtiger
       Vtiger.uri  = config[:uri]
     end
     
-    def list_types
-      api_get('listtypes')['types']
-    end
-
-    def describe(element_type)
-      api_get('describe', {:elementType => element_type})
-    end
-    
-    private
     def session
       unless @session && @challenge['expireTime'] > 30.seconds.from_now.to_i
-        @challenge  = get(uri, :query => {:operation => 'getchallenge', :username => user})
+        @challenge  = get(uri, :query => {:operation => 'getchallenge', :username => user})['result']
         digest      = "#{@challenge['token']}#{key}"
         access_key  = Digest::MD5.hexdigest(digest)
-        @session    = post(uri, {:body => {:operation => 'login', :username => user, :accessKey => access_key}})['sessionName']
+        @session    = post(uri, {:body => {:operation => 'login', :username => user, :accessKey => access_key}})['result']['sessionName']
       end
       @session
     end
 
     def get(*args)
-      super(*args).parsed_response['result']
-    end
-
-    def api_get(operation, query = {})
-      query = {:operation => operation, :sessionName => session}.merge(query)
-      get(uri, :query => query)
+      super(*args).parsed_response
+      # response = super(*args)
+      # puts response.methods.sort - Object.methods
+      # puts response.request.uri.to_s
+      # puts response.inspect
+      # response.parsed_response
     end
 
     def post(*args)
-      super(*args).parsed_response['result']
+      super(*args).parsed_response
+      # response = super(*args)
+      # puts response.inspect
+      # response.parsed_response
     end
   end
   extend Vtiger::ClassMethods

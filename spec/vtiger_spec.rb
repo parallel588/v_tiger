@@ -42,19 +42,4 @@ describe "Vtiger" do
       Vtiger.class_eval{session}.should == Vtiger.class_eval{session}
     end
   end
-  
-  describe ".list_types" do
-    it "should include Products" do
-      Vtiger.list_types.should include('Products')
-    end
-  end
-  
-  describe ".describe" do
-    context " Product" do
-      it "should have a label with Products" do
-        Vtiger.describe('Products')['label'].should == "Products"
-      end
-    end
-    
-  end
 end
