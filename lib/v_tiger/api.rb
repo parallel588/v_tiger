@@ -20,7 +20,7 @@ module VTiger::API
   end
   
   def update(element)
-    post('update', :element => element)
+    post('update', :element => element.to_json)
   end
   
   def delete(id)
