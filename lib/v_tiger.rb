@@ -12,24 +12,35 @@ require 'active_support/core_ext/class/attribute_accessors'
 require 'active_support/core_ext/hash/slice'
 
 class VTiger
-  cattr_accessor :user, :key, :uri
+  cattr_accessor :user, :key, :uri, :logging
   include VTiger::API
   # include VTiger::Query
   
   def self.config(config = {})
-    VTiger.user = config[:user]
-    VTiger.key  = config[:key]
-    VTiger.uri  = config[:uri]
+    VTiger.user     = config[:user]
+    VTiger.key      = config[:key]
+    VTiger.uri      = config[:uri]
+    VTiger.logging  = config[:logging]
   end
   
   def get(operation, query = {})
     query = {:operation => operation, :sessionName => VTiger.session}.merge(query)
-    HTTParty.get(VTiger.uri, :query => query).parsed_response
+    response = HTTParty.get(VTiger.uri, :query => query)
+    log(response) if VTiger.logging
+    response.parsed_response
   end
   
   def post(operation, body = {})
     body = {:operation => operation, :sessionName => VTiger.session}.merge(body)
-    HTTParty.post(VTiger.uri, :body => body).parsed_response
+    response = HTTParty.post(VTiger.uri, :body => body)
+    log(response) if VTiger.logging
+    response.parsed_response
+  end
+  
+  def log(response)
+    puts "URI: #{response.request.uri.to_s}"
+    puts "BODY: #{response.body}"
+    puts ''
   end
   
   private
