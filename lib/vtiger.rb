@@ -1,6 +1,6 @@
 require "vtiger/version"
-require "vtiger/crud"
-require "vtiger/query"
+require "vtiger/api"
+# require "vtiger/query"
 
 require 'httparty'
 require 'json'
@@ -13,21 +13,13 @@ require 'active_support/core_ext/hash/slice'
 
 class Vtiger
   cattr_accessor :user, :key, :uri
-  include Vtiger::Crud
-  include Vtiger::Query
+  include Vtiger::API
+  # include Vtiger::Query
   
   def self.config(config = {})
     Vtiger.user = config[:user]
     Vtiger.key  = config[:key]
     Vtiger.uri  = config[:uri]
-  end
-  
-  def list_types
-    get('listtypes')['result']['types']
-  end
-
-  def describe(element_type)
-    get('describe', :elementType => element_type)['result']
   end
   
   def get(operation, query = {})

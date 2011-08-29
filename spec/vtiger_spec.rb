@@ -23,27 +23,47 @@ describe "Vtiger" do
 
   describe "#create" do
     context " with a valid object" do
+      before(:all) do
+        @attributes = {'productname' => 'Title of Product', 'manufacturer' => 'Broyhill'}
+        @create = @api.create('Products', @attributes)
+      end
       it "should return success" do
-        @api.create('Products', 'productname' => 'Title of Product', 'manufacture' => 'Broyhill')['success'].should be_true
+        @create['success'].should be_true
       end
     
       it "should return an VtigerObject that matches what we sent" do
-        attributes = {'productname' => 'Title of Product', 'manufacturer' => 'Broyhill'}
-        @api.create('Products', attributes)['result'].should include_hash(attributes)
+        @create['result'].should include_hash(@attributes)
       end
     end
   end
   
   describe "#retrieve" do
     context " with a valid object" do
+      before(:all) do
+        @attributes = {'productname' => 'Title of Product', 'manufacturer' => 'Broyhill'}
+        id = @api.create('Products', @attributes)['result']['id']
+        @retrieve = @api.retrieve(id)
+      end
       it "should return success" do
-        @api.create('Products', 'productname' => 'Title of Product', 'manufacture' => 'Broyhill')['success'].should be_true
+        @retrieve['success'].should be_true
       end
     
       it "should return an VtigerObject that matches what we sent" do
-        attributes = {'productname' => 'Title of Product', 'manufacturer' => 'Broyhill'}
-        @api.create('Products', attributes)['result'].should include_hash(attributes)
+        @retrieve['result'].should include_hash(@attributes)
       end
+    end
+  end
+  
+  describe "#query" do
+    before(:all) do
+      @query = @api.query('select * from Products;')
+    end
+    it "should return success" do
+      @query['success'].should be_true
+    end
+    
+    it "should return an array of objects" do
+      @query['result'].should be_a(Array)
     end
   end
   

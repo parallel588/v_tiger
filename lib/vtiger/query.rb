@@ -1,5 +1,6 @@
 module Vtiger::Query
-  def query(objectType, options = {})
+  
+  def build_query(objectType, options = {})
     @objectType     = objectType
     @options        = options
     @query           = get('query', :query => query_string)
