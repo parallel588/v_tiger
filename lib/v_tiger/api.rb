@@ -1,4 +1,4 @@
-module Vtiger::API
+module VTiger::API
   def list_types
     get('listtypes')['result']['types']
   end

@@ -1,4 +1,4 @@
-module Vtiger::Query
+module VTiger::Query
   
   def build_query(objectType, options = {})
     @objectType     = objectType

@@ -1,9 +1,9 @@
 require 'spec_helper'
 
-describe "Vtiger::Query" do
+describe "VTiger::Query" do
   before(:all) do 
-    Vtiger.config(:user => 'admin', :key  => 'dH1WLzo4utYOpXx9', :uri  => 'http://crm.ihswebdesign.com/webservice.php')
-    @api = Vtiger.new
+    VTiger.config(:user => 'admin', :key  => 'dH1WLzo4utYOpXx9', :uri  => 'http://crm.ihswebdesign.com/webservice.php')
+    @api = VTiger.new
   end
   describe "#query" do
     context "with just the objectType " do

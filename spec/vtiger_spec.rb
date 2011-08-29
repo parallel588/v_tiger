@@ -1,22 +1,22 @@
 require 'spec_helper'
 
-describe "Vtiger" do
+describe "VTiger" do
   before(:all) do 
-    Vtiger.config(:user => 'admin', :key  => 'dH1WLzo4utYOpXx9', :uri  => 'http://crm.ihswebdesign.com/webservice.php')
-    @api = Vtiger.new
+    VTiger.config(:user => 'admin', :key  => 'dH1WLzo4utYOpXx9', :uri  => 'http://crm.ihswebdesign.com/webservice.php')
+    @api = VTiger.new
   end
   describe ".config" do
     context "should set user, key, and uri class variables" do
       it "user is admin" do
-        Vtiger.user.should == 'admin'
+        VTiger.user.should == 'admin'
       end
       
       it "key is dH1WLzo4utYOpXx9" do
-        Vtiger.key.should == 'dH1WLzo4utYOpXx9'
+        VTiger.key.should == 'dH1WLzo4utYOpXx9'
       end
       
       it "uri is http://crm.ihswebdesign.com/webservice.php" do
-        Vtiger.uri.should == 'http://crm.ihswebdesign.com/webservice.php'
+        VTiger.uri.should == 'http://crm.ihswebdesign.com/webservice.php'
       end
     end
   end
@@ -31,7 +31,7 @@ describe "Vtiger" do
         @create['success'].should be_true
       end
     
-      it "should return an VtigerObject that matches what we sent" do
+      it "should return an VTigerObject that matches what we sent" do
         @create['result'].should include_hash(@attributes)
       end
     end
@@ -48,7 +48,7 @@ describe "Vtiger" do
         @retrieve['success'].should be_true
       end
     
-      it "should return an VtigerObject that matches what we sent" do
+      it "should return an VTigerObject that matches what we sent" do
         @retrieve['result'].should include_hash(@attributes)
       end
     end
@@ -84,11 +84,11 @@ describe "Vtiger" do
   
   describe ".session" do
     it "should be present" do
-      Vtiger.class_eval{session}.should be
+      VTiger.class_eval{session}.should be
     end
     
     it "should persist" do
-      Vtiger.class_eval{session}.should == Vtiger.class_eval{session}
+      VTiger.class_eval{session}.should == VTiger.class_eval{session}
     end
   end
 end

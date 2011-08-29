@@ -1,5 +1,5 @@
-require "vtiger/version"
-require "vtiger/api"
+require "v_tiger/version"
+require "v_tiger/api"
 # require "vtiger/query"
 
 require 'httparty'
@@ -11,25 +11,25 @@ require 'active_support/core_ext/numeric'
 require 'active_support/core_ext/class/attribute_accessors'
 require 'active_support/core_ext/hash/slice'
 
-class Vtiger
+class VTiger
   cattr_accessor :user, :key, :uri
-  include Vtiger::API
-  # include Vtiger::Query
+  include VTiger::API
+  # include VTiger::Query
   
   def self.config(config = {})
-    Vtiger.user = config[:user]
-    Vtiger.key  = config[:key]
-    Vtiger.uri  = config[:uri]
+    VTiger.user = config[:user]
+    VTiger.key  = config[:key]
+    VTiger.uri  = config[:uri]
   end
   
   def get(operation, query = {})
-    query = {:operation => operation, :sessionName => Vtiger.session}.merge(query)
-    HTTParty.get(Vtiger.uri, :query => query).parsed_response
+    query = {:operation => operation, :sessionName => VTiger.session}.merge(query)
+    HTTParty.get(VTiger.uri, :query => query).parsed_response
   end
   
   def post(operation, body = {})
-    body = {:operation => operation, :sessionName => Vtiger.session}.merge(body)
-    HTTParty.post(Vtiger.uri, :body => body).parsed_response
+    body = {:operation => operation, :sessionName => VTiger.session}.merge(body)
+    HTTParty.post(VTiger.uri, :body => body).parsed_response
   end
   
   private
