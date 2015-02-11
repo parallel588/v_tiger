@@ -4,7 +4,8 @@ require "v_tiger/api"
 
 require 'httparty'
 require 'json'
-YAML::ENGINE.yamler = "syck"
+require 'psych'
+#YAML::ENGINE.yamler = "syck"
 
 require 'active_support'
 require 'active_support/time'
